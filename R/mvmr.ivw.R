@@ -6,10 +6,11 @@
 #' @param se.outcome A vector of estimated standard errors of beta.outcome
 #' @param P A K-by-K matrix for the estimated shared correlation matrix, where K is the number of exposure
 #'
-#' @return A list:
-#' * beta.hat contains estimated direct effects of each exposure on the outcome
-#' * beta.se contains estimated standard errors of beta.hat
-#' * iv_strength_parameter is the minimum eigenvalue of the sample IV strength matrix, which quantifies the IV strength in the sample
+#' @return A list with elements
+#' \item{beta.hat}{Estimated direct effects of each exposure on the outcome}
+#' \item{beta.se}{Estimated standard errors of beta.hat}
+#' \item{iv_strength_parameter}{The minimum eigenvalue of the sample IV strength matrix, which quantifies the IV strength in the sample}
+#' @import MVMR
 #' @export
 #'
 #' @examples
