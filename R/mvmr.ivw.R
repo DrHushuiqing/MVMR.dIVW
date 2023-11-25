@@ -21,7 +21,11 @@
 #' se.outcome <- rawdat_mvmr$SBP_se
 #' P <- matrix(0.3, nrow = 3, ncol = 3)
 #' diag(P) <- 1
-#' mvmr.ivw(beta.exposure = beta.exposure,se.exposure = se.exposure,beta.outcome = beta.outcome,se.outcome = se.outcome,P = P)
+#' mvmr.ivw(beta.exposure = beta.exposure,
+#' se.exposure = se.exposure,
+#' beta.outcome = beta.outcome,
+#' se.outcome = se.outcome,
+#' P = P)
 #'
 mvmr.ivw <- function(beta.exposure, se.exposure, beta.outcome, se.outcome, P) {
   if (ncol(beta.exposure) <= 1 | ncol(se.exposure) <= 1) {stop("this function is developed for multivariable MR")}
