@@ -1,3 +1,28 @@
+#' Perform inverse-variance weighted (IVW) estimator for two-sample summary-data multivariable Mendelian randomization
+#'
+#' @param beta.exposure A data.frame or matrix. Each row contains the estimated marginal effect of a SNP on K exposures, usually obtained from a GWAS
+#' @param se.exposure A data.frame or matrix of estimated standard errors of beta.exposure
+#' @param beta.outcome A vector of the estimated marginal effect of a SNP on outcome, usually obtained from a GWAS
+#' @param se.outcome A vector of estimated standard errors of beta.outcome
+#' @param P A K-by-K matrix for the estimated shared correlation matrix, where K is the number of exposure
+#'
+#' @return A list:
+#' * beta.hat contains estimated direct effects of each exposure on the outcome
+#' * beta.se contains estimated standard errors of beta.hat
+#' * iv_strength_parameter is the minimum eigenvalue of the sample IV strength matrix, which quantifies the IV strength in the sample
+#' @export
+#'
+#' @examples
+#' library(MVMR)
+#' data("rawdat_mvmr")
+#' beta.exposure <- rawdat_mvmr[,c("LDL_beta","HDL_beta","Trg_beta")]
+#' se.exposure <- rawdat_mvmr[,c("LDL_se","HDL_se","Trg_se")]
+#' beta.outcome <- rawdat_mvmr$SBP_beta
+#' se.outcome <- rawdat_mvmr$SBP_se
+#' P <- matrix(0.3, nrow = 3, ncol = 3)
+#' diag(P) <- 1
+#' mvmr.ivw(beta.exposure = beta.exposure,se.exposure = se.exposure,beta.outcome = beta.outcome,se.outcome = se.outcome,P = P)
+#'
 mvmr.ivw <- function(beta.exposure, se.exposure, beta.outcome, se.outcome, P) {
   if (ncol(beta.exposure) <= 1 | ncol(se.exposure) <= 1) {stop("this function is developed for multivariable MR")}
   if (ncol(P) != ncol(beta.exposure)) {stop("The shared correlation matrix has a different number of columns than the input beta.exposure")}
